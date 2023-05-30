@@ -1,0 +1,13 @@
+{
+  "name": "no-graphics",
+  "version": "0.1.0",
+  "title": "No Graphics",
+  "author": "RedRafe",
+  "source": "",
+  "homepage": "https://mods.factorio.com/user/RedRafe",
+  "factorio_version": "1.1",
+  "description": "Removes all graphics. yes.",
+  "dependencies": [
+    "base"
+  ]
+}
