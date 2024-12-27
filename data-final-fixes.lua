@@ -6,14 +6,13 @@ local entity_types = {
   "artillery-wagon",
   "assembling-machine",
   "beacon",
-  "boiler",
+  --"boiler",
   "cargo-wagon",
   "combat-robot",
   "constant-combinator",
   "construction-robot",
   "container",
   "corpse",
-  "curved-rail",
   "decider-combinator",
   "electric-energy-interface",
   "electric-turret",
@@ -48,7 +47,6 @@ local entity_types = {
   "solar-panel",
   "spider-vehicle",
   "splitter",
-  "straight-rail",
   "technology",
   "train-stop",
   "transport-belt",
@@ -72,6 +70,19 @@ local entity_types = {
   --"rail-signal",
   --"rail-chain-signal",
   "burner-generator",
+
+  "straight-rail",
+  "legacy-straight-rail",
+  "legacy-curved-rail",
+  "curved-rail-a",
+  "curved-rail-b",
+  "half-diagonal-rail",
+  "rail-ramp",
+  "rail-support",
+  "elevated-straight-rail",
+  "elevated-curved-rail-a",
+  "elevated-curved-rail-b",
+  "elevated-half-diagonal-rail",
 }
 
 ---@param entity LuaEntityPrototype
@@ -258,9 +269,13 @@ local function reset_animation_of_thing(e)
 end
 
 for ___, type in pairs(entity_types) do
-  for ___, entity in pairs(data.raw[type]) do
-    reset_icon(entity)
-    reset_animation_of_thing(entity)
-    reset_optional_properties(entity)
+  if (data.raw[type]) == nil then
+    log("Error: type " .. type .. " not found.")
+  else
+    for ___, entity in pairs(data.raw[type]) do
+      reset_icon(entity)
+      reset_animation_of_thing(entity)
+      reset_optional_properties(entity)
+    end
   end
 end
