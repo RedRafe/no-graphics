@@ -5,8 +5,14 @@ local entity_types = {
   "artillery-turret",
   "artillery-wagon",
   "assembling-machine",
+  "asteroid",
+  "asteroid-chunk",
+  "asteroid-collector",
   "beacon",
   --"boiler",
+  "capture-robot",
+  "cargo-bay",
+  "cargo-landing-pad",
   "cargo-wagon",
   "combat-robot",
   "constant-combinator",
@@ -19,6 +25,8 @@ local entity_types = {
   "fluid-turret",
   "fluid-wagon",
   "furnace",
+  "fusion-generator",
+  "fusion-reactor",
   "gate",
   "generator",
   "heat-interface",
@@ -27,6 +35,8 @@ local entity_types = {
   "lab",
   "lamp",
   "land-mine",
+  "lightning",
+  "lightning-attractor",
   "linked-belt",
   "linked-container",
   "loader-1x1",
@@ -36,18 +46,24 @@ local entity_types = {
   "market",
   "mining-drill",
   "offshore-pump",
+  "plant",
   "programmable-speaker",
   "pump",
   "reactor",
   "roboport",
   "rocket-silo",
+  "segment",
+  "selector-combinator",
   "simple-entity-with-force",
   "simple-entity-with-owner",
   "simple-entity",
   "solar-panel",
+  "space-platform-hub",
+  "spider-unit",
   "spider-vehicle",
   "splitter",
   "technology",
+  "thruster",
   "train-stop",
   "transport-belt",
   "tree",
@@ -106,7 +122,8 @@ local function reset_optional_properties(entity)
 end
 
 local exceptions_by_name = {
-  ["tl-empty-smoke"] = true
+  ["tl-empty-smoke"] = true,
+  ["railgun-turret"] = true,
 }
 
 local function ANIMATION()
@@ -179,6 +196,11 @@ local function reset_animations(animations)
   if animations.east then reset_animation(animations.east) end
   if animations.west then reset_animation(animations.west) end
 
+  if animations.north_east then reset_animation(animations.north_east) end
+  if animations.south_east then reset_animation(animations.south_east) end
+  if animations.north_west then reset_animation(animations.north_west) end
+  if animations.south_west then reset_animation(animations.south_west) end
+
   if is_table(animations) and #animations > 0 and animations[1].frame_count then
     for _, animation in pairs(animations) do
       reset_animation(animation)
@@ -206,6 +228,12 @@ local function make_inserter_hand_transparent(e)
   e.hand_closed_shadow = nothing()
   e.hand_open_shadow = nothing()
   e.draw_held_item = false
+end
+
+local function reset_fluidbox_animations(fluidboxes)
+  for ___, fluidbox in pairs(fluidboxes) do
+    fluidbox.enable_working_visualisations = nil
+  end
 end
 
 local function reset_animation_of_thing(e)
@@ -264,6 +292,11 @@ local function reset_animation_of_thing(e)
   if e.animations then e.animations = ANIMATION() end
   if e.off_animation then e.off_animation = ANIMATION() end
   if e.on_animation then e.on_animation = ANIMATION() end
+  if e.capture_animation then reset_animations(e.capture_animation) end
+  if e.platform_graphics_set then reset_animations(e.platform_graphics_set) end
+  if e.fluid_boxes then reset_fluidbox_animations(e.fluid_boxes) end
+  if e.fuel_fluid_box and e.fuel_fluid_box.pipe_connections then reset_fluidbox_animations(e.fuel_fluid_box.pipe_connections) end
+  if e.oxidizer_fluid_box and e.oxidizer_fluid_box.pipe_connections then reset_fluidbox_animations(e.oxidizer_fluid_box.pipe_connections) end
   --if e.picture then e.picture = ANIMATION() end
   --if e.pictures then e.pictures = ANIMATION() end
 end
