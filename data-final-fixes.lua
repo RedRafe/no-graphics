@@ -253,6 +253,7 @@ local function reset_animation_of_thing(e)
   if e.pictures then reset_animations(e.pictures) end
   if e.smoke_pictures then reset_animations(e.smoke_pictures) end
   if e.animation then reset_animations(e.animation) end
+  if e.decay_animation then reset_animations(e.decay_animation) end
   if e.fluid_animation then reset_animations(e.fluid_animation) end
   if e.base_animation then reset_animations(e.base_animation) end
   if e.horizontal_animation then reset_animations(e.horizontal_animation) end
@@ -280,6 +281,7 @@ local function reset_animation_of_thing(e)
   if e.alternative_attacking_frame_sequence then e.alternative_attacking_frame_sequence = nil end
   if e.run_animation then e.run_animation = ANIMATION() end
   if e.animation then e.animation = ANIMATION() end
+  if e.decay_animation then e.decay_animation = ANIMATION() end
   if e.direction_shuffle then e.direction_shuffle = nil end
   if e.animation_overlay then e.animation_overlay = ANIMATION() end
   if e.door_animation_down then e.door_animation_down = ANIMATION() end
